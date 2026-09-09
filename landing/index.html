@@ -958,6 +958,176 @@
         color: var(--text);
       }
 
+      .usage-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+        gap: 18px;
+        align-items: stretch;
+        margin-bottom: 18px;
+      }
+
+      .usage-copy,
+      .usage-prompt,
+      .route-card,
+      .command-meaning,
+      .journey {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(20, 20, 18, 0.72);
+      }
+
+      .usage-copy,
+      .usage-prompt {
+        padding: clamp(22px, 3vw, 32px);
+      }
+
+      .usage-copy h3 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: 25px;
+      }
+
+      .usage-copy p,
+      .usage-prompt p {
+        margin: 0;
+        font-size: 16px;
+      }
+
+      .usage-prompt {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-color: rgba(104, 217, 155, 0.3);
+        background: linear-gradient(
+          135deg,
+          rgba(104, 217, 155, 0.09),
+          rgba(20, 20, 18, 0.72)
+        );
+      }
+
+      .usage-prompt pre {
+        margin-top: 14px;
+        border-color: rgba(104, 217, 155, 0.22);
+        color: var(--mint);
+      }
+
+      .route-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+
+      .route-card {
+        position: relative;
+        min-height: 190px;
+        padding: 22px;
+        overflow: hidden;
+      }
+
+      .route-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 3px;
+        background: var(--mint);
+      }
+
+      .route-card:nth-child(2)::before {
+        background: var(--amber);
+      }
+
+      .route-card:nth-child(3)::before {
+        background: var(--violet);
+      }
+
+      .route-condition {
+        display: block;
+        margin-bottom: 20px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .route-card strong {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--ink);
+        font-size: 21px;
+      }
+
+      .route-card p {
+        margin: 0;
+        font-size: 15px;
+      }
+
+      .command-meanings {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .command-meaning {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 14px;
+        align-items: start;
+        padding: 17px;
+      }
+
+      .command-meaning code {
+        color: var(--cyan);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .command-meaning p {
+        margin: 0;
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .journey {
+        margin-top: 18px;
+        padding: 22px;
+      }
+
+      .journey-title {
+        display: block;
+        margin-bottom: 15px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .journey-flow {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--ink);
+        font-weight: 800;
+      }
+
+      .journey-flow span:not(.journey-arrow) {
+        flex: 1;
+        padding: 12px 10px;
+        border: 1px solid rgba(247, 244, 237, 0.1);
+        border-radius: 8px;
+        background: rgba(5, 5, 5, 0.3);
+        text-align: center;
+      }
+
+      .journey-arrow {
+        color: var(--red);
+        font-family: var(--mono);
+      }
+
       .final {
         text-align: center;
       }
@@ -1023,7 +1193,8 @@
 
         .proof-strip,
         .section-head,
-        .install-layout {
+        .install-layout,
+        .usage-intro {
           grid-template-columns: 1fr;
         }
 
@@ -1040,6 +1211,10 @@
 
         .grid-3 {
           grid-template-columns: 1fr;
+        }
+
+        .command-meanings {
+          grid-template-columns: repeat(2, 1fr);
         }
       }
 
@@ -1145,8 +1320,24 @@
 
         .hero-stats,
         .compare,
-        .grid-2 {
+        .grid-2,
+        .route-grid,
+        .command-meanings {
           grid-template-columns: 1fr;
+        }
+
+        .route-card {
+          min-height: auto;
+        }
+
+        .journey-flow {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .journey-arrow {
+          transform: rotate(90deg);
+          align-self: center;
         }
 
         .card {
@@ -1764,90 +1955,93 @@ irm https://cdn.jsdelivr.net/gh/qorstack/sage@latest/install.ps1 | iex</pre
         <div class="wrap">
           <div class="section-head">
             <div>
-              <div class="eyebrow">Getting started</div>
-              <h2>Run in this order.</h2>
+              <div class="eyebrow">How to use Sage</div>
+              <h2>Start every task with /sage.</h2>
             </div>
             <p>
-              Each command builds on the last — learn first, then code with full
-              context, then document for your team.
+              You do not need to learn an AI workflow. Describe the result you
+              want in normal words, and Sage chooses the right path.
             </p>
           </div>
 
-          <div class="file-stack" style="max-width: 700px; margin: 0 auto">
-            <div
-              class="file"
-              style="
-                display: grid;
-                grid-template-columns: auto 1fr;
-                gap: 16px;
-                align-items: start;
-              "
-            >
-              <span class="step-num" style="margin-top: 2px">01</span>
-              <div>
-                <span class="file-label" style="color: var(--amber)"
-                  >/sage-learning &nbsp;·&nbsp; once after install, + after big
-                  changes</span
-                >
-                <p>
-                  Learns your codebase's real patterns (rules + decisions)
-                  <em>and</em> researches current best practices for your stack
-                  (skills) — one run. Gives Sage a knowledge baseline before it
-                  touches anything.
-                </p>
-              </div>
+          <div class="usage-intro">
+            <div class="usage-copy">
+              <h3>One command is enough to begin.</h3>
+              <p>
+                After installing Sage, run <code>/sage-learning</code> once so it
+                can learn how your project already works. From then on, begin
+                each coding task with <code>/sage</code>.
+              </p>
             </div>
-            <div
-              class="file"
-              style="
-                display: grid;
-                grid-template-columns: auto 1fr;
-                gap: 16px;
-                align-items: start;
-              "
-            >
-              <span class="step-num" style="margin-top: 2px">02</span>
-              <div>
-                <span class="file-label" style="color: var(--mint)"
-                  >/sage &nbsp;·&nbsp; every change (enforced by
-                  AGENTS.md)</span
-                >
-                <p>
-                  Full pipeline before and after every code change — pick role,
-                  read team knowledge, assess risk, code, capture, summarize. It
-                  also shows a short checklist. Auto mode selects the recommended
-                  set and continues; ask mode uses the best picker the host
-                  exposes. Then it runs the right specialist itself:
-                  <code>/sage-flow</code>, <code>/sage-ticket</code>,
-                  <code>/sage-review</code>, <code>/sage-unit-test</code>,
-                  <code>/sage-e2e-test</code>,
-                  <code>/sage-security-review</code>. You mostly just type
-                  <code>/sage</code>.
-                </p>
-              </div>
+            <div class="usage-prompt">
+              <p>For example, type this in your AI coding tool:</p>
+              <pre>/sage add discount coupons to checkout</pre>
             </div>
-            <div
-              class="file"
-              style="
-                display: grid;
-                grid-template-columns: auto 1fr;
-                gap: 16px;
-                align-items: start;
-              "
-            >
-              <span class="step-num" style="margin-top: 2px">03</span>
-              <div>
-                <span class="file-label" style="color: var(--cyan)"
-                  >/sage-docs &nbsp;·&nbsp; on demand</span
-                >
-                <p>
-                  Turn any spec, README, or meeting note into a plain-Markdown
-                  flow doc in <code>docs/</code> — end-to-end ASCII diagram, full
-                  step-by-step, complete API spec, open questions. Reads on
-                  GitHub, diffs in a PR — no HTML, CSS, or JS. Use when a teammate
-                  needs to <em>read</em> — not when an AI needs to follow.
-                </p>
-              </div>
+          </div>
+
+          <div class="route-grid" aria-label="How Sage routes a request">
+            <article class="route-card">
+              <span class="route-condition">Clear and small</span>
+              <strong>Sage starts the work</strong>
+              <p>
+                If the request is specific enough, Sage reads the project,
+                checks the risk, makes the change, and validates the result.
+              </p>
+            </article>
+            <article class="route-card">
+              <span class="route-condition">Unclear, but one conversation</span>
+              <strong>Grill asks what matters</strong>
+              <p>
+                Sage asks a few useful questions so everyone agrees on what
+                should be built before code is written.
+              </p>
+            </article>
+            <article class="route-card">
+              <span class="route-condition">Large and unclear</span>
+              <strong>Wayfinder makes a map</strong>
+              <p>
+                Sage breaks research and decisions into manageable steps that
+                can continue across several work sessions.
+              </p>
+            </article>
+          </div>
+
+          <div class="command-meanings" aria-label="Plain-language command guide">
+            <div class="command-meaning">
+              <code>Grill</code>
+              <p>Clarifies what you actually want to build.</p>
+            </div>
+            <div class="command-meaning">
+              <code>Wayfinder</code>
+              <p>Explores and plans a large, uncertain project.</p>
+            </div>
+            <div class="command-meaning">
+              <code>Flow</code>
+              <p>Designs how the system should work.</p>
+            </div>
+            <div class="command-meaning">
+              <code>Ticket</code>
+              <p>Turns the design into small, buildable tasks.</p>
+            </div>
+            <div class="command-meaning">
+              <code>Sage</code>
+              <p>Writes or changes code and checks the result.</p>
+            </div>
+            <div class="command-meaning">
+              <code>Review</code>
+              <p>Checks that the finished work matches the promise.</p>
+            </div>
+          </div>
+
+          <div class="journey">
+            <span class="journey-title">A full feature might move like this</span>
+            <div class="journey-flow" aria-label="Example full feature journey">
+              <span>Idea</span><span class="journey-arrow">&rarr;</span>
+              <span>Grill</span><span class="journey-arrow">&rarr;</span>
+              <span>Flow</span><span class="journey-arrow">&rarr;</span>
+              <span>Ticket</span><span class="journey-arrow">&rarr;</span>
+              <span>Sage</span><span class="journey-arrow">&rarr;</span>
+              <span>Review</span>
             </div>
           </div>
         </div>
